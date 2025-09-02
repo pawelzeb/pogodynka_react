@@ -90,7 +90,8 @@ class Weather extends Component<WeatherProps, WeatherState> {
 
   async followRequest(city: string, cc: string): Promise<any> {
     console.log(`follow ${city}`)
-    const url = `http://localhost:4000/follow/${city}/${cc}`;
+    const url = `https://pogodynka-nodejs.onrender.com/follow/${city}/${cc}`;
+
     try {
       const response = await fetch(url, {
         mode: "cors",
@@ -119,7 +120,7 @@ class Weather extends Component<WeatherProps, WeatherState> {
   }
   async unfollowRequest(city: string, cc: string): Promise<any> {
     console.log(`follow ${city}`)
-    const url = `http://localhost:4000/follow/${city}/${cc}`;
+    const url = `https://pogodynka-nodejs.onrender.com/follow/${city}/${cc}`;
     try {
       const response = await fetch(url, {
         mode: "cors",
@@ -155,7 +156,7 @@ class Weather extends Component<WeatherProps, WeatherState> {
 
     this.props.citySelected(city, cc);
     console.log(`city: ${city}`)
-    const url = `http://localhost:4000/weather/${city}/${cc}`;
+    const url = `https://pogodynka-nodejs.onrender.com/weather/${city}/${cc}`;
     try {
       const response = await fetch(url, {
         mode: "cors",
