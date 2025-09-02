@@ -60,7 +60,7 @@ class History extends Component {
     }
 
     async getDataRequest(city, cc) {
-        let url = `http://localhost:4000/history/${city}/${cc}`
+        let url = `https://pogodynka-nodejs.onrender.com/history/${city}/${cc}`
         let result = null;
         result = fetch(url, {
             mode: 'cors',

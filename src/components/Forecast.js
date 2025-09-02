@@ -19,7 +19,7 @@ class Forecast extends Component {
 
     async getForecastRequest(city,cc) {
       console.log(`city forecast ${city}`)
-      let url = `http://localhost:4000/forecast/${city}/${cc}`
+      let url = `https://pogodynka-nodejs.onrender.com/forecast/${city}/${cc}`
       let result = null;
       result = fetch(url, {
         mode: 'cors',
