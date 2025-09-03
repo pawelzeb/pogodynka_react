@@ -182,7 +182,7 @@ class Weather extends Component<WeatherProps, WeatherState> {
 
   
   componentDidMount(): void {
-    this.getWeatherRequest(this.state.city, this.state.cc);
+    // this.getWeather(); // Można odkomentować do inicjalnej wartości
   }
 
   render(): JSX.Element {
