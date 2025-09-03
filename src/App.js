@@ -1,12 +1,13 @@
 import './assets/App.css';
 import Main from './components/Main.tsx'
-import { useEffect, createContext } from "react";
+import { useEffect, useState, useRef } from "react";
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, update, set, off , child, onValue, Database} from "firebase/database";
-import {getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut} from "firebase/auth"
+import { getDatabase, ref, off , child, onValue, get} from "firebase/database";
+import {getAuth,  signInWithEmailAndPassword} from "firebase/auth"
 import Global from "./Global.js";
 import sun from "./assets/sun_icon.png";
 import { WeatherProvider } from "./provider/WeatherProvider.js"; // ← importuj Provider
+import Alerts from "./components/Alerts.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBdMuzQU24tYjF99SBlFcfxp4c8_dn1-hI",
@@ -17,6 +18,7 @@ const firebaseConfig = {
   messagingSenderId: "766903572746",
   appId: "1:766903572746:web:04919bbb638e3a2a38c2f3"
 };
+
 
 // function NoMobile() {
 //   return(<div class="info"><div class="info-text">{"Aplikacja nie działa na urządzeniach mobilnych (;"}</div></div>);
@@ -33,11 +35,10 @@ function notify(title, msg) {
 function getGlobalAlerts(fb) {
   const dbRef = ref(fb);
   const adminRef = child(dbRef, `msg1`);
-  const that = this;
-    let cnt = 0;
+  let cnt = 0;
     onValue(adminRef, snapshot => {
       cnt++;
-      if(cnt == 1) return;
+      if(cnt === 1) return;
       if (snapshot.exists()) {
         const msg = snapshot.val();
         notify('Globalny alert', msg)
@@ -45,44 +46,81 @@ function getGlobalAlerts(fb) {
     });
   }
   function rmLocalAlerts(fb, city) {
+    console.log("❌ Unsubscribing:", city);
     const dbRef = ref(fb);
     const adminRef = child(dbRef, city);
     off(adminRef)
   }
-  function addLocalAlerts(fb, city) {
+  function addLocalAlerts(fb, city, setData) {
     const dbRef = ref(fb);
     const adminRef = child(dbRef, city);
-    const that = this;
     let cnt = 0;
-    console.log("✅ cubscribing ", city);
+    console.log("✅ subscribing ", city);
     onValue(adminRef, snapshot => {
       cnt++;
-      if(cnt == 1) return;
+      
         if (snapshot.exists()) {
-            const msg = snapshot.val();
-            notify(city, msg);
+          const msg = snapshot.val();
+          if(cnt === 1) {
+            const tab = msg.split(" ");
+            console.log(city, tab[1])
+            if(tab.lenght < 2) return;
+            const msgDate = new Date(tab[1]);
+            if (isNaN(msgDate.getTime())) return;
+            const d = new Date();
+            const now = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+              if(now > msgDate) return;
+          }
+          if(setData)
+            setData(prevData => [...prevData, { city, msg }]);
+          notify(city, msg);
+        } 
+    });
+}
+function addLocalAlertOnce(fb, city, setData) {
+    const dbRef = ref(fb);
+    const adminRef = child(dbRef, city);
+    console.log("✅ SUBSCRIBING ", city);
+    get(adminRef).then((snapshot) => {
+        if (snapshot.exists()) {
+          const msg = snapshot.val();
+          const tab = msg.split(" ");
+          console.log(city, tab[1])
+          if(tab.lenght < 2) return;
+          const msgDate = new Date(tab[1]);
+          if (isNaN(msgDate.getTime())) return;
+          const d = new Date();
+          const now = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+          if(now > msgDate) return;
+          if(setData)
+            setData(prevData => [...prevData]);
+          notify(city, msg);
         } 
     });
 }
 
 
 function App() {
+  const [data, setData] = useState([]);
+  const subscribedCities = useRef(new Set());
+
   const firebaseApp = initializeApp(firebaseConfig);
   const database = getDatabase(firebaseApp);
   const auth = getAuth(firebaseApp);
+  
   function unsubscribe(city) {
-    console.log("❌ Unsubscribing:", city);
+    subscribedCities.current.delete(city);
     rmLocalAlerts(database, city)
   }
   function subscribe(city) {
-    console.log("❌ Subscribing:", city);
-    addLocalAlerts(database, city)
-  }
-
+    if (subscribedCities.current.has(city)) return;
+    subscribedCities.current.add(city);
+    addLocalAlerts(database, city, setData)
+  }      
 useEffect(() => {
-      signInWithEmailAndPassword(auth, Global.email, Global.password)
+  console.log("USE EFFECT")
+    signInWithEmailAndPassword(auth, Global.email, Global.password)
       .then(userCredential => {
-        const user = userCredential.user;
         getGlobalAlerts(database)
         let list = []
         if(localStorage.getItem("follow_cities"))
@@ -90,17 +128,17 @@ useEffect(() => {
         console.log(list)
         for(const city of list) {
           //console.log("*"+city)
-          addLocalAlerts(database, city)
+          addLocalAlerts(database, city, setData)
         }
   })
   .catch(error => {
     console.error("❌ Błąd logowania:", error.message);
   });
-  }
-);
+  }, []);
   return (
     <WeatherProvider onUnsubscribe={unsubscribe} onSubscribe={subscribe}> 
       <div className="App">
+        <Alerts data={data} close={false}/>
         <Main />
       </div>
     </WeatherProvider>
