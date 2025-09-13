@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./src/assets/App.css" />
+    <title>Document</title>
+</head>
+<body>
+  
+<!-- Slideshow container -->
+<div class="alert-container">
+  <div class="slideshow-container">
+    <div class="close-alert" onclick="closeAlerts()">✖</div>
+    <!-- Full-width images with number and caption text -->
+    <div class="mySlides fade">
+      <div class="text">Caption Text</div>
+    </div>
+
+    <div class="mySlides fade">
+      <div class="text">Caption Two</div>
+    </div>
+
+    <div class="mySlides fade">
+      <div class="text"><div class="title">Kuwejt</div>Uwaga 2025-07-31 przewidywane są bardzo wysokie temperatury </div>
+    </div>
+
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+  </div>  
+
+<div style="text-align:center">
+  <span class="dot" onclick="currentSlide(1)"></span>
+  <span class="dot" onclick="currentSlide(2)"></span>
+  <span class="dot" onclick="currentSlide(3)"></span>
+</div>
+</div>
+  </div>
+<div id="menu" class="menu-container">
+    <button id="weather" class="toolbutton  btn-selected">Pogoda</button>
+    <button id="forecast" class="toolbutton  ">Prognoza</button>
+    <button id="history" class="toolbutton  ">Historia</button>
+    <button id="poi" class="toolbutton  ">Lokacje</button>
+</div>
+
+<div class="content-row">
+<div class="drag-scroll" id="tableWrapper">
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="5">Dzień 1</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>h</th><th>h</th><th>h</th><th>h</th><th>h</th>
+    </tr>
+    <tr>
+      <th></th>
+      <td><img class="" src="10d.png" /></td><td><img class="" src="10d.png" /></td><td><img class="" src="10d.png" /></td><td><img class="" src="10d.png" /></td><td><img class="" src="10d.png" /></td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>wind💨</th>
+      <td class=""><div class="wind-cell"><img class="wind-dir" src="wind_dir.png"/>46</div></td><td><img class="wind-dir" src="wind_dir.png"/>80</td><td><img class="wind-dir" src="wind_dir.png"/></td><td><img class="wind-dir" src="wind_dir.png"/>42</td><td>12</td>
+    </tr>
+    <tr>
+      <th>temp 🌡️</th>
+      <td>22</td><td>22</td><td>22</td><td>22</td><td>22</td>
+    </tr>
+    <tr>
+      <th>temp_max🌡️</th>
+      <td>22</td><td>22</td><td>22</td><td>22</td><td>22</td>
+    </tr>
+    <tr>
+      <th>temp_min🌡️</th>
+      <td>22</td><td>22</td><td>22</td><td>22</td><td>22</td>
+    </tr>
+    <tr>
+      <th>humidity💦</th>
+      <td>22</td><td>22</td><td>22</td><td>22</td><td>22</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>        
+
+<div class="content-row">
+    <div class="content-column">
+        <div class="content-row">
+            <input type="text" placeholder="Podaj lokację..." class="pill-input" />
+            <button id="go" class="pill-button">GO</button>
+            <button id="follow" class="pill-button">Obserwuj</button>
+        </div>
+        <div class="city-data">
+            <div class="content-column">
+                <div>
+                    <b>Alta</b> (16:32:26)                     
+                </div> 
+                <div >
+                    <p>23,27° &nbsp; 69,97°</p>
+                </div>
+            </div>
+        </div>
+        <div class="content-row">
+            <div class="temperature-container">
+                <div class="content-row">
+                    <div class="main-temp">
+                        <div class="content-row">
+                        <b>13°C</b> &nbsp;
+                        <img src="puste" alt=" img"/>
+                        </div>
+
+                    </div>
+                    <div class="general-temp">
+                        <b>coś innego</b>
+                        <div>coś innego</div>
+                    </div>
+                </div>
+                    <div class="amp-temp">
+                        <div>Max: 14°C &nbsp;</div>
+                        <div>Min: 12°C</div>
+                    </div>
+                
+            </div>
+        </div>
+        <div class="content-row">
+            <div class="pressure-container">
+                <div class="data"><b>Wiatr</b><br>5.66 m/s</div>
+                
+                <div class="content-row">
+                    <div class="merge-images">
+                    <img class="rose-wind" src="rose.png" alt=" img"/>
+                    <img class="bearing" src="bearing.png" alt=" img"/>
+                    </div>
+                </div>
+            </div>
+            <div class="wind-container">
+                <div class="data"><b>Ciśnienie</b>
+                </div>
+                <div class="data-center">1000mBar</div>
+                
+                
+                <div class="content-row">
+                    <div class="merge-images">
+                    <div class="pressure-gauge"></div>
+                    <div class="pressure-pointer"></div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="content-row">
+            <div class="sun-container">
+            <div class="data">Wschód i zachód słońca</div>
+                <div class="content-row">
+                    <div class="sun-text">06:02:47</div>
+                    <div class="merge-sun">
+                        <img class="sun-line" src="sun_line.png" alt=" img"/>   
+                        <img class="sun" src="sun.png" alt=" img"/>   
+                    </div>
+                    <div class="sun-text">06:02:47</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+<div class="padding">&nbsp;</div>
+
+<div class="pogodynka-footer">
+  <p id="demo">My Footer</p>
+</div> 
+
+
+<script>
+        onload = function() {
+            // getLocation()
+            //notify()
+            //localStorage.setItem('weather_city', null)
+            console.log(localStorage.getItem('weather_city'))
+            let list  = null
+            if(localStorage.getItem('weather_city')) {
+              list = JSON.parse(localStorage.getItem('weather_city'))
+            }
+            if(list == null)
+              list = []
+            list.push(Math.random())
+
+            console.log(list)
+            localStorage.setItem('weather_city', JSON.stringify(list))
+
+            
+
+            const bearing = document.querySelector('.bearing')
+            bearing.style.transform = `rotate(-55deg)`
+
+            const pp = document.querySelector('.pressure-pointer')
+            pp.style.height = `15%`
+
+            const sun = document.querySelector('.sun')
+            sun.style.transform = `rotate(15deg)`
+            windClass()
+
+            const el = document.getElementById("tableWrapper");
+            let isDown = false;
+let startX, scrollLeft;
+let velocity = 0;
+let animationFrame;
+
+el.addEventListener("mousedown", (e) => {
+  isDown = true;
+  startX = e.clientX;
+  scrollLeft = el.scrollLeft;
+  velocity = 0;
+  cancelAnimationFrame(animationFrame);
+  el.classList.add("grabbing");
+});
+
+el.addEventListener("mouseup", () => {
+  isDown = false;
+  el.classList.remove("grabbing");
+  animateInertia();
+});
+
+el.addEventListener("mouseleave", () => {
+  if (isDown) {
+    isDown = false;
+    el.classList.remove("grabbing");
+    animateInertia();
+  }
+});
+
+el.addEventListener("mousemove", (e) => {
+  if (!isDown) return;
+  const x = e.clientX;
+  const dx = x - startX;
+  el.scrollLeft = scrollLeft - dx;
+  velocity = dx; // zapisz prędkość
+});
+
+// efekt inercji po puszczeniu
+function animateInertia() {
+  velocity *= 0.85;
+  if (Math.abs(velocity) > 0.35) {
+    el.scrollLeft -= velocity;
+    animationFrame = requestAnimationFrame(animateInertia);
+  }
+}
+        }
+
+function windClass() {
+
+    const windRow = document.querySelector("table tbody tr:nth-child(1)"); // zakładamy wind to pierwszy wiersz
+    const windCells = windRow.querySelectorAll("td");
+
+    windCells.forEach((cell) => {
+      const value = parseFloat(cell.textContent);
+      if (!isNaN(value)) {
+        if (value < 25) {
+          cell.classList.add("wind-calm");
+        } else if (value < 50) {
+          cell.classList.add("wind-medium");
+        } else {
+          cell.classList.add("wind-strong");
+        }
+      }
+    });
+}    
+function notify() {
+ if (Notification.permission === 'granted') {
+  new Notification('Pogoda', {
+    body: 'Dziś słonecznie! 🌞',
+    icon: '10d.png'
+  });
+} else if (Notification.permission !== 'denied') {
+  Notification.requestPermission().then(permission => {
+    if (permission === 'granted') {
+      new Notification('Pogoda', {
+        body: 'Dziś słonecznie! 🌞',
+        icon: '10d.png'
+      });
+    }
+  });
+}
+
+}    
+const x = document.getElementById("demo");
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(success, error);
+  } else {
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function success(position) {
+
+  fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${position.coords.latitude}&lon=${position.coords.longitude}`)
+  .then(response => response.json())
+  .then(data => {
+    const city = data.address.city || data.address.town || data.address.village;
+    console.log("Najbliższa miejscowość:", city);
+      x.innerHTML = `Latitude: ${position.coords.latitude} <br>Longitude: ${position.coords.longitude}<br>Najbliższa miejscowość: <b> ${city}</b>`;
+
+  });
+}
+
+function error() {
+  alert("Sorry, no position available.");
+}
+
+///*************Karuzela ****************
+let slideIndex = 1;
+showSlides(slideIndex);
+
+// Next/previous controls
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+// Thumbnail image controls
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  let dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " active";
+}
+function closeAlerts() {
+  const alerts = document.querySelector('.alert-container')
+if (alerts) {
+  alerts.remove();
+}
+}
+</script> 
+</body>
+</html>
