@@ -90,7 +90,7 @@ class Weather extends Component<WeatherProps, WeatherState> {
 
   async followRequest(city: string, cc: string): Promise<any> {
     console.log(`follow ${city}`)
-    const url = `http://pogodynka-backend.polandcentral.azurecontainer.io/follow/${city}/${cc}`;
+    const url = `http://localhost:4000/weather/${city}/${cc}`;
     try {
       const response = await fetch(url, {
         mode: "cors",
