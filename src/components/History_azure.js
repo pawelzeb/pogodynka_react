@@ -60,7 +60,7 @@ class History extends Component {
     }
 
     async getDataRequest(city, cc) {
-        let url = `http://pogodynka-backend.polandcentral.azurecontainer.io/history/${city}/${cc}`
+        let url = `http://localhost:4000/history/${city}/${cc}`
         let response = null;
         try {
             response = await fetch(url, {
