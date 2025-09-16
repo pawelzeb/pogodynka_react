@@ -156,7 +156,7 @@ class Weather extends Component<WeatherProps, WeatherState> {
 
     this.props.citySelected(city, cc);
     console.log(`city: ${city}`)
-    const url = `http://pogodynka-backend.polandcentral.azurecontainer.io/follow/${city}/${cc}`;
+        const url = `http://pogodynka-backend.polandcentral.azurecontainer.io/follow/${city}/${cc}`;
     try {
       const response = await fetch(url, {
         mode: "cors",
