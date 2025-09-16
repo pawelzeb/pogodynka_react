@@ -54,7 +54,7 @@ class Weather extends Component<WeatherProps, WeatherState> {
     let bFollow = true;
     if(list.includes(city)) {
       //tzn unfollow
-      list = list.filter(miasto => miasto !== city);
+      list = list.filter(miasto => miasto != city);
       bFollow = false;
     }
     else  
@@ -90,7 +90,7 @@ class Weather extends Component<WeatherProps, WeatherState> {
 
   async followRequest(city: string, cc: string): Promise<any> {
     console.log(`follow ${city}`)
-    const url = `http://pogodynka-backend.polandcentral.azurecontainer.io/follow/${city}/${cc}`;
+    const url = `http://localhost:4000/follow/${city}/${cc}`;
     try {
       const response = await fetch(url, {
         mode: "cors",
@@ -104,7 +104,7 @@ class Weather extends Component<WeatherProps, WeatherState> {
       const responseData = await response.json();
       
       console.log(responseData)
-      if(responseData.code && responseData.code === 404) {
+      if(responseData.code && responseData.code == 404) {
         this.setState(prevState => ({ ...prevState,  error: responseData.error}));
       }
       else {
@@ -119,7 +119,7 @@ class Weather extends Component<WeatherProps, WeatherState> {
   }
   async unfollowRequest(city: string, cc: string): Promise<any> {
     console.log(`follow ${city}`)
-    const url = `http://pogodynka-backend.polandcentral.azurecontainer.io/follow/${city}/${cc}`;
+    const url = `http://localhost:4000/follow/${city}/${cc}`;
     try {
       const response = await fetch(url, {
         mode: "cors",
@@ -156,7 +156,7 @@ class Weather extends Component<WeatherProps, WeatherState> {
 
     this.props.citySelected(city, cc);
     console.log(`city: ${city}`)
-    const url = `http://pogodynka-backend.polandcentral.azurecontainer.io/weather/${city}/${cc}`;
+    const url = `http://localhost:4000/weather/${city}/${cc}`;
     try {
       const response = await fetch(url, {
         mode: "cors",
@@ -227,8 +227,8 @@ class Weather extends Component<WeatherProps, WeatherState> {
           </div>
           <WeatherContext.Consumer>
             {context => {
-              subscribe && context.onSubscribe(weather.name);
-              unsubscribe && context.onUnsubscribe(weather.name);
+              subscribe && context.onSubscribe(city);
+              unsubscribe && context.onUnsubscribe(city);
               return null; // albo coś do wyświetlenia
             }}
         </WeatherContext.Consumer>

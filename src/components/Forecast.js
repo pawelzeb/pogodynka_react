@@ -1,5 +1,5 @@
 import {Component} from "react"
-import DailyForecast from "./DailyForecast";
+import DailyForecast from "./DailyForecast.js";
 import WeatherInput from "./WeatherInput.tsx";
 
 class Forecast extends Component {
@@ -19,7 +19,7 @@ class Forecast extends Component {
 
     async getForecastRequest(city,cc) {
       console.log(`city forecast ${city}`)
-      let url = `http://localhost:4000/forecast/${city}/${cc}`
+      let url = `http://pogodynka-backend.polandcentral.azurecontainer.io/forecast/${city}/${cc}`
       let response = null;
       try {
         response = await fetch(url, {
